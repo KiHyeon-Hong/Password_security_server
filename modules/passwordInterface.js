@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function test() {
-  return 'hello world!!!';
+  return 'test Code';
 }
 
 module.exports.test = test;
