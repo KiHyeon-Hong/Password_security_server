@@ -1,4 +1,4 @@
-const passwordSecurityServer = require('./modules/passwordInterface.js');
+const passwordSecurityServer = require('./src/passwordInterface.js');
 
 module.exports = {
   passwordSecurityServer: passwordSecurityServer
