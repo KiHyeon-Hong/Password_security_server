@@ -14,3 +14,4 @@ console.log("Dictionary Matched or not(t) : ", comparePoint.comparePoint("ghltrn
 
 // Security Assessment Score
 console.log("Security Assessment Score(2p+t) : ", ((koreanZxcvbn("ghltnrnjs654321").score * 2) + comparePoint.comparePoint("ghltrnjs")));
+
