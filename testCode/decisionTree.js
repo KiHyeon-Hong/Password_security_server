@@ -19,6 +19,7 @@ var test_data = [
     {"color":"yellow", "shape":"circle", "liked":false}
 ];
 
+
 var class_name = "liked";
 
 var features = ["color", "shape"];
