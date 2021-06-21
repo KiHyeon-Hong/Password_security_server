@@ -1,8 +1,12 @@
 const fs = require('fs');
+const PasswordModelTrain = require(__dirname + '/PasswordModelTrain.js');
 
-class passwordSecurity {
+
+class PasswordSecurity {
     passwordModelTrain(versionData, comment) {
-        return 'passwordModelTrain';
+
+        // return 'passwordModelTrain';
+        return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.1, "Test Training");
     };
 
     passwordModelDistribution(versionData, gatewayInfo) {
@@ -34,4 +38,4 @@ class passwordSecurity {
     }
 }
 
-module.exports.passwordSecurity = passwordSecurity;
+module.exports.PasswordSecurity = PasswordSecurity;
