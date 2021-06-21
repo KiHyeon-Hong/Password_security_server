@@ -1,16 +1,14 @@
 const fs = require('fs');
 const PasswordModelTrain = require(__dirname + '/PasswordModelTrain.js');
-
+const PasswordModelDistribution = require(__dirname + '/PasswordModelDistribution.js');
 
 class PasswordSecurity {
     passwordModelTrain(versionData, comment) {
-
-        // return 'passwordModelTrain';
-        return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.1, "Test Training");
+        // return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.1, "Test Training");
     };
 
     passwordModelDistribution(versionData, gatewayInfo) {
-        return 'passwordModelDistribution';
+        return new PasswordModelDistribution.PasswordModelDistribution().passwordModelDistribution(0.1, "localhost");
     };
 
     passwordDictUpdate(dictionary, comment) {
