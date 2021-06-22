@@ -4,7 +4,7 @@ const PasswordModelDistribution = require(__dirname + '/PasswordModelDistributio
 
 class PasswordSecurity {
     passwordModelTrain(versionData, comment) {
-        // return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.1, "Test Training");
+        return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.1, "Test Training");
     };
 
     passwordModelDistribution(versionData, gatewayInfo) {
@@ -12,6 +12,7 @@ class PasswordSecurity {
     };
 
     passwordDictUpdate(dictionary, comment) {
+        
         return 'passwordDictUpdate';
     };
 
