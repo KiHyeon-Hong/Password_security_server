@@ -27,7 +27,7 @@ class PasswordModelTrain {
         }
         
         
-        oriDatas = fs.readFileSync(__dirname + '/../files/LeakPasswordFeatures1.txt', 'utf8');
+        oriDatas = fs.readFileSync(__dirname + '/../files/notLeakPasswordFeatures.txt', 'utf8');
         oriDatas = oriDatas.split('\n');
         
         datas = [];
