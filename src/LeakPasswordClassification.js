@@ -9,6 +9,10 @@ const comparePoint = new koreanZxcvbnString.koreanZxcvbnString.koreanZxcvbnStrin
 
 
 class LeakPasswordClassification {
+    leakPasswordClassification(password) {
+        fs.appendFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', password + ',' + ((koreanZxcvbn(password).score * 2) + comparePoint.frequencyComparePoint(password)) + ',' + ludsPoint.ludsPoint(password).nScore + ',' + levenshteinDistance.totalLVD(password) + ',' + 1, 'utf8');
+    }
+
     leakPasswordsClassification() {
         var datas = fs.readFileSync(__dirname + '/../files/LeakData.txt', 'utf8');
         datas = datas.split('\n');
@@ -47,13 +51,13 @@ class LeakPasswordClassification {
         fs.writeFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', '', 'utf8');
 
         for(let i = 0; i < leakDatas.length; i++) {
-            fs.appendFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', leakDatas[i] + ',' + ((koreanZxcvbn(leakDatas[i]).score * 2) + comparePoint.frequencyComparePoint(leakDatas[i])) + ',' + ludsPoint.ludsPoint(leakDatas[i]).nScore + ',' + levenshteinDistance.totalLVD(leakDatas[i]) + ',' + leakValues[i], 'utf8');
+            fs.appendFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', leakDatas[i] + ',' + ((koreanZxcvbn(leakDatas[i]).score * 2) + comparePoint.frequencyComparePoint(leakDatas[i])) + ',' + ludsPoint.ludsPoint(leakDatas[i]).nScore + ',' + levenshteinDistance.totalLVD(leakDatas[i]) + ',' + leakValues[i] + '\n', 'utf8');
         }
 
         fs.writeFileSync(__dirname + '/../files/notLeakPasswordFeatures.txt', '', 'utf8');
 
         for(let i = 0; i < notLeakDatas.length; i++) {
-            fs.appendFileSync(__dirname + '/../files/notLeakPasswordFeatures.txt', notLeakDatas[i] + ',' + ((koreanZxcvbn(notLeakDatas[i]).score * 2) + comparePoint.frequencyComparePoint(notLeakDatas[i])) + ',' + ludsPoint.ludsPoint(notLeakDatas[i]).nScore + ',' + levenshteinDistance.totalLVD(notLeakDatas[i]) + ',' + notLeakValues[i], 'utf8');
+            fs.appendFileSync(__dirname + '/../files/notLeakPasswordFeatures.txt', notLeakDatas[i] + ',' + ((koreanZxcvbn(notLeakDatas[i]).score * 2) + comparePoint.frequencyComparePoint(notLeakDatas[i])) + ',' + ludsPoint.ludsPoint(notLeakDatas[i]).nScore + ',' + levenshteinDistance.totalLVD(notLeakDatas[i]) + ',' + notLeakValues[i] + '\n', 'utf8');
         }
 
     }

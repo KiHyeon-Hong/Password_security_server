@@ -6,7 +6,7 @@ class PasswordModelTrain {
     passwordModelTrain(versionData, comment) {
         var oriDatas = fs.readFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', 'utf8');
         oriDatas = oriDatas.split('\n');
-        
+
         var datas = [];
         for(let i = 0; i < oriDatas.length; i++) {
             datas[i] = oriDatas[i].split('\r')[0];
@@ -90,11 +90,11 @@ class PasswordModelTrain {
         var validationDataTensor = tf.tensor(validationData);
         var validationLabelTensor = tf.tensor(validationLabel);
         
-        console.log(trainDataTensor);
         
-        var X = tf.input({shape: [5]});
-        var h1 = tf.layers.dense({units: 3, activation:'relu'}).apply(X);
-        var h2 = tf.layers.dense({units: 5, activation:'relu'}).apply(h1);
+        /*
+        var X = tf.input({shape: [3]});
+        var h1 = tf.layers.dense({units: 5, activation:'relu'}).apply(X);
+        var h2 = tf.layers.dense({units: 3, activation:'relu'}).apply(h1);
         var Y = tf.layers.dense({units: 1, activation: 'sigmoid'}).apply(h2);
         
         var model = tf.model({ inputs: X, outputs: Y });
@@ -142,6 +142,7 @@ class PasswordModelTrain {
         
             });
         });
+        */
 
         return `${versionData}, ${comment}`;
     }

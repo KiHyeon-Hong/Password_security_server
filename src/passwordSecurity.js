@@ -5,7 +5,7 @@ const LeakPasswordClassification = require(__dirname + '/LeakPasswordClassificat
 
 class PasswordSecurity {
     passwordModelTrain(versionData, comment) {
-        return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.1, "Test Training");
+        return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.2, "Test Training");
     };
 
     passwordModelDistribution(versionData, gatewayInfo) {
@@ -37,7 +37,7 @@ class PasswordSecurity {
         return 'getLog';
     }
 
-    passwordModelTest(versionData, gatewayInfo) {
+    passwordModelTest(password) {
         var pwd = new LeakPasswordClassification.LeakPasswordClassification();
         pwd.leakPasswordsClassification();
     }
