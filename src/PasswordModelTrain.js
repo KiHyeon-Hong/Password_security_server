@@ -18,7 +18,7 @@ class PasswordModelTrain {
         var leakDataFeature3 = [];
         var leakDataValue = [];
         
-        for(let i = 0; i < datas.length; i++) {
+        for(let i = 0; i < datas.length - 1; i++) {
             leakString[i] = datas[i].split(',')[0];
             leakDataFeature1[i] = datas[i].split(',')[1];
             leakDataFeature2[i] = datas[i].split(',')[2];
@@ -41,7 +41,7 @@ class PasswordModelTrain {
         var notLeakDataFeature3 = [];
         var notLeakDataValue = [];
         
-        for(let i = 0; i < datas.length; i++) {
+        for(let i = 0; i < datas.length - 1; i++) {
             notLeakString[i] = datas[i].split(',')[0];
             notLeakDataFeature1[i] = datas[i].split(',')[1];
             notLeakDataFeature2[i] = datas[i].split(',')[2];
@@ -92,9 +92,9 @@ class PasswordModelTrain {
         
         console.log(trainDataTensor);
         
-        var X = tf.input({shape: [3]});
+        var X = tf.input({shape: [5]});
         var h1 = tf.layers.dense({units: 3, activation:'relu'}).apply(X);
-        var h2 = tf.layers.dense({units: 3, activation:'relu'}).apply(h1);
+        var h2 = tf.layers.dense({units: 5, activation:'relu'}).apply(h1);
         var Y = tf.layers.dense({units: 1, activation: 'sigmoid'}).apply(h2);
         
         var model = tf.model({ inputs: X, outputs: Y });

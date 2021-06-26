@@ -1,6 +1,7 @@
 const fs = require('fs');
 const PasswordModelTrain = require(__dirname + '/PasswordModelTrain.js');
 const PasswordModelDistribution = require(__dirname + '/PasswordModelDistribution.js');
+const LeakPasswordClassification = require(__dirname + '/LeakPasswordClassification.js');
 
 class PasswordSecurity {
     passwordModelTrain(versionData, comment) {
@@ -34,6 +35,11 @@ class PasswordSecurity {
 
     getLog(level, startDate, finishDate) {
         return 'getLog';
+    }
+
+    passwordModelTest(versionData, gatewayInfo) {
+        var pwd = new LeakPasswordClassification.LeakPasswordClassification();
+        pwd.leakPasswordsClassification();
     }
 }
 
