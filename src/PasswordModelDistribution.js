@@ -10,7 +10,7 @@ class PasswordModelDistribution {
     for(let i = 0; i < path.length - 1; i++) {
       filePath = filePath + path[i] + '/';
     }
-
+    console.log(`${filePath}passwordModel/${versionData}`);
     return `${filePath}passwordModel/${versionData}`;
   }
 }

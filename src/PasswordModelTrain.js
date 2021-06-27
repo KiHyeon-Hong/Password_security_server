@@ -6,12 +6,12 @@ class PasswordModelTrain {
     passwordModelTrain(versionData, comment) {
         var oriDatas = fs.readFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', 'utf8');
         oriDatas = oriDatas.split('\n');
-
+        console.log(oriDatas[oriDatas.length - 2]);
         var datas = [];
         for(let i = 0; i < oriDatas.length; i++) {
             datas[i] = oriDatas[i].split('\r')[0];
         }
-        
+        console.log(datas[datas.length - 2]);
         var leakString = []
         var leakDataFeature1 = [];
         var leakDataFeature2 = [];
@@ -25,7 +25,6 @@ class PasswordModelTrain {
             leakDataFeature3[i] = datas[i].split(',')[3];
             leakDataValue[i] = 0;
         }
-        
         
         oriDatas = fs.readFileSync(__dirname + '/../files/notLeakPasswordFeatures.txt', 'utf8');
         oriDatas = oriDatas.split('\n');
@@ -90,8 +89,6 @@ class PasswordModelTrain {
         var validationDataTensor = tf.tensor(validationData);
         var validationLabelTensor = tf.tensor(validationLabel);
         
-        
-        /*
         var X = tf.input({shape: [3]});
         var h1 = tf.layers.dense({units: 5, activation:'relu'}).apply(X);
         var h2 = tf.layers.dense({units: 3, activation:'relu'}).apply(h1);
@@ -104,13 +101,13 @@ class PasswordModelTrain {
         
         var history = [];
         
-        var fitParam = { epochs: 50, callbacks:{
+        var fitParam = { epochs: 5, callbacks:{
             onEpochEnd: function(epoch, logs) {
                 console.log('epoch', epoch, logs, "RMSE -> ", Math.sqrt(logs.loss));
                 history.push(logs);
             }
         }};
-        
+
         model.fit(trainDataTensor, trainLabelTensor, fitParam).then(async function(result) {
         
             var validationResult = model.predict(validationDataTensor);
@@ -142,8 +139,6 @@ class PasswordModelTrain {
         
             });
         });
-        */
-
         return `${versionData}, ${comment}`;
     }
 }

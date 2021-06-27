@@ -2,17 +2,20 @@ const fs = require('fs');
 const PasswordModelTrain = require(__dirname + '/PasswordModelTrain.js');
 const PasswordModelDistribution = require(__dirname + '/PasswordModelDistribution.js');
 const LeakPasswordClassification = require(__dirname + '/LeakPasswordClassification.js');
+const PasswordValidationTest = require(__dirname + '/PasswordValidationTest.js');
 
 class PasswordSecurity {
     passwordModelTrain(versionData, comment) {
-        return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(0.2, "Test Training");
+        return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(versionData, comment);
     };
 
     passwordModelDistribution(versionData, gatewayInfo) {
-        return new PasswordModelDistribution.PasswordModelDistribution().passwordModelDistribution(0.1, "localhost");
+        return new PasswordModelDistribution.PasswordModelDistribution().passwordModelDistribution(versionData, gatewayInfo);
     };
 
     passwordDictUpdate(dictionary, comment) {
+        var pwd = new LeakPasswordClassification.LeakPasswordClassification();
+        pwd.leakPasswordClassification(password, comment);
         
         return 'passwordDictUpdate';
     };
@@ -38,9 +41,13 @@ class PasswordSecurity {
     }
 
     passwordModelTest(password) {
-        var pwd = new LeakPasswordClassification.LeakPasswordClassification();
-        pwd.leakPasswordsClassification();
+        
     }
+    async passwordValidation(password) {
+        // 반환받은 결과를 바탕으로 피드백 기능 필요
+        const result = await new PasswordValidationTest.PasswordValidationTest().passwordValidationTest(password);
+        return result;
+    };
 }
 
 module.exports.PasswordSecurity = PasswordSecurity;

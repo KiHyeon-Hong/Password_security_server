@@ -10,7 +10,11 @@ const comparePoint = new koreanZxcvbnString.koreanZxcvbnString.koreanZxcvbnStrin
 
 class LeakPasswordClassification {
     leakPasswordClassification(password) {
-        fs.appendFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', password + ',' + ((koreanZxcvbn(password).score * 2) + comparePoint.frequencyComparePoint(password)) + ',' + ludsPoint.ludsPoint(password).nScore + ',' + levenshteinDistance.totalLVD(password) + ',' + 1, 'utf8');
+        fs.appendFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', password + ',' + ((koreanZxcvbn(password).score * 2) + comparePoint.frequencyComparePoint(password)) + ',' + ludsPoint.ludsPoint(password).nScore + ',' + levenshteinDistance.totalLVD(password) + ',' + 1 + '\n', 'utf8');
+
+        fs.appendFileSync(__dirname + '/../lib/koreanZxcvbnString/files/wordDataToEng.txt', ',' + password, 'utf8');
+
+
     }
 
     leakPasswordsClassification() {
