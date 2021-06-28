@@ -1,17 +1,37 @@
 const fs = require('fs');
+
+const ModelVersionManagement = require(__dirname + '/ModelVersionManagement.js');
+
 var tf = require('@tensorflow/tfjs');
 require("tfjs-node-save");
 
 class PasswordModelTrain {
+    /*
+        유출모델 학습 메소드
+        반환과는 별개로 학습 수행
+
+        가끔, 초기값이 잘못 설정되면 학습이 수행되지 않으므로 일정 에러율 초과 시 재학습 수행
+        학습에 이용하는 하이퍼 파라매터는 파일에서 읽어오기!!! -> epoch, activation, unit
+        학습 후 학습 결과는 버전 명과 함께 저장
+
+    */
     passwordModelTrain(versionData, comment) {
+
+        var pwd = new ModelVersionManagement.ModelVersionManagement();
+
+        if(pwd.modelVersionValidation(versionData)) {
+            return 'Duplicate Version';
+        }
+
+
         var oriDatas = fs.readFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', 'utf8');
         oriDatas = oriDatas.split('\n');
-        console.log(oriDatas[oriDatas.length - 2]);
+
         var datas = [];
         for(let i = 0; i < oriDatas.length; i++) {
             datas[i] = oriDatas[i].split('\r')[0];
         }
-        console.log(datas[datas.length - 2]);
+
         var leakString = []
         var leakDataFeature1 = [];
         var leakDataFeature2 = [];
@@ -130,16 +150,16 @@ class PasswordModelTrain {
                     noGood++;
                 }
             }
-        
-            console.log(good);
-            console.log(noGood);
+
+            var accuracy = good / (good + noGood);
         
             model.save("file://" + __dirname +"/../passwordModel/" + versionData).then(async function() {
                 console.log("Successfully saved the artifacts.");
-        
+                pwd.trainModelVersionWrite(versionData, '0.1', accuracy, history[history.length - 1].loss, comment);
             });
         });
-        return `${versionData}, ${comment}`;
+
+        return 'Model Train Start';
     }
 }
 

@@ -11,18 +11,32 @@ var tf = require('@tensorflow/tfjs');
 require("tfjs-node-save");
 
 class PasswordValidationTest {
-    async passwordValidationTest(password) {
-        var feature = [(koreanZxcvbn(password).score * 2) + comparePoint.frequencyComparePoint(password), ludsPoint.ludsPoint(password).nScore, levenshteinDistance.totalLVD(password)]
+    /*
+        외부에서는 사용하지 않을 메소드
+        테스트를 위해 사용
+    */
+    async passwordValidationTest(versionData, password) {
+        var feature = [(koreanZxcvbn(password).score * 2) + comparePoint.frequencyComparePoint(password), ludsPoint.ludsPoint(password).nScore, levenshteinDistance.totalLVD(password)];
 
-        // console.log(comparePoint.frequencyComparePoint("rlgus"));
-        // console.log(comparePoint.koreanZxcvbnString("rlgus"));
-
-        const loadedModel = await tf.loadLayersModel("file://" + __dirname + "/../passwordModel/0.2/model.json");
+        const loadedModel = await tf.loadLayersModel("file://" + __dirname + `/../passwordModel/${versionData}/model.json`);
         var predictPoint = loadedModel.predict(tf.tensor([feature]));
         predictPoint = Array.from(predictPoint.dataSync())[0];
 
         return predictPoint;
     };
+
+    passwordTrainFileTest() {
+        var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
+        json = JSON.parse(json);
+
+        json[json.length] = {"identificationUp":123,"identificationDown":123,"minMaxCount":123,"blinkPoint":123};
+
+        json = JSON.stringify(json);
+
+        fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8')
+    }
+
+    
 }
 
 module.exports.PasswordValidationTest = PasswordValidationTest;
