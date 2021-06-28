@@ -26,6 +26,13 @@ class ModelVersionManagement {
         }
     }
 
+    latestVersionModel() {
+        var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
+        json = JSON.parse(json);
+
+        return json[json.length - 1].version;
+    }
+
     trainModelVersionWrite(versionData, dictionaryVersion, accuracy, loss, comment) {
         var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
         json = JSON.parse(json);
@@ -34,7 +41,54 @@ class ModelVersionManagement {
 
         json = JSON.stringify(json);
 
-        fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8')
+        fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8');
+    }
+
+    passwordModelVersion(versionData) {
+        var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
+        json = JSON.parse(json);
+
+        for(let i = 0; i < json.length; i++) {
+            if(json[i].version == versionData) {
+                return json[i];
+            }
+        }
+
+        return json;
+    }
+
+    passwordModelComment(versionData, comment) {
+        var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
+        json = JSON.parse(json);
+
+        for(let i = 0; i < json.length; i++) {
+            if(json[i].version == versionData) {
+                json[i].comment = comment;
+
+                json = JSON.stringify(json);
+                fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8');
+
+                return 'Update comment complete';
+            }
+        }
+
+        return 'No Search Model Version';
+    }
+
+    passwordModelDelete(versionData) {
+        var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
+        json = JSON.parse(json);
+
+        for(let i = 0; i < json.length; i++) {
+            if(json[i].version == versionData) {
+                json.splice(i, 1);
+
+                json = JSON.stringify(json);
+                fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8');
+            }
+        }
+
+        return 'No Search Model Version';
     }
 }
 

@@ -9,7 +9,7 @@ class PasswordModelParaUpdate {
     passwordModelParaRead() {
         var json = fs.readFileSync(__dirname + '/../files/passwordModelTrainPara.json', 'utf8');
         json = JSON.parse(json);
-        console.log(json);
+        console.log(json.unit[1]);
     }
 }
 

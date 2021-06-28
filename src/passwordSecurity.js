@@ -8,6 +8,7 @@ const ModelVersionManagement = require(__dirname + '/ModelVersionManagement.js')
 const PasswordModelParaUpdate = require(__dirname + '/PasswordModelParaUpdate.js');
 
 class PasswordSecurity {
+    // 학습 후 학습에 사용한 사전도 저장? -> 방법 구상 필요
     passwordModelTrain(versionData, comment) {
         return new PasswordModelTrain.PasswordModelTrain().passwordModelTrain(versionData, comment);
     };
@@ -16,6 +17,7 @@ class PasswordSecurity {
         return new PasswordModelDistribution.PasswordModelDistribution().passwordModelDistribution(versionData, gatewayInfo);
     };
 
+    // 파일 3개 변경 기능 추가 필요
     passwordDictUpdate(dictionary, comment) {
         var pwd = new LeakPasswordClassification.LeakPasswordClassification();
         pwd.leakPasswordClassification(dictionary, comment);
@@ -31,16 +33,22 @@ class PasswordSecurity {
     };
 
     passwordModelComment(versionData, comment) {
+        var pwd = new ModelVersionManagement.ModelVersionManagement();
+        pwd.passwordModelComment(versionData, comment);
 
         return 'passwordModelComment';
     };
 
     passwordModelDelete(versionData) {
+        var pwd = new ModelVersionManagement.ModelVersionManagement();
+        pwd.passwordModelDelete(versionData);
 
         return 'passwordModelDelete';
     };
 
     passwordModelVersion(versionData) {
+        var pwd = new ModelVersionManagement.ModelVersionManagement();
+        pwd.passwordModelVersion(versionData);
 
         return 'passwordModelVersion';
     };

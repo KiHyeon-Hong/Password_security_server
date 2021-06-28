@@ -23,6 +23,9 @@ class PasswordModelTrain {
             return 'Duplicate Version';
         }
 
+        var json = fs.readFileSync(__dirname + '/../files/passwordModelTrainPara.json', 'utf8');
+        json = JSON.parse(json);
+
 
         var oriDatas = fs.readFileSync(__dirname + '/../files/LeakPasswordFeatures.txt', 'utf8');
         oriDatas = oriDatas.split('\n');
@@ -109,10 +112,10 @@ class PasswordModelTrain {
         var validationDataTensor = tf.tensor(validationData);
         var validationLabelTensor = tf.tensor(validationLabel);
         
-        var X = tf.input({shape: [3]});
-        var h1 = tf.layers.dense({units: 5, activation:'relu'}).apply(X);
-        var h2 = tf.layers.dense({units: 3, activation:'relu'}).apply(h1);
-        var Y = tf.layers.dense({units: 1, activation: 'sigmoid'}).apply(h2);
+        var X = tf.input({shape: [json.unit[0]]});
+        var h1 = tf.layers.dense({units: json.unit[1], activation:json.activation}).apply(X);
+        var h2 = tf.layers.dense({units: json.unit[2], activation:json.activation}).apply(h1);
+        var Y = tf.layers.dense({units: json.unit[3], activation: 'sigmoid'}).apply(h2);
         
         var model = tf.model({ inputs: X, outputs: Y });
         
@@ -121,7 +124,7 @@ class PasswordModelTrain {
         
         var history = [];
         
-        var fitParam = { epochs: 5, callbacks:{
+        var fitParam = { epochs: json.epoch, callbacks:{
             onEpochEnd: function(epoch, logs) {
                 console.log('epoch', epoch, logs, "RMSE -> ", Math.sqrt(logs.loss));
                 history.push(logs);
