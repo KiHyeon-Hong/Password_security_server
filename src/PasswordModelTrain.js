@@ -143,7 +143,7 @@ class PasswordModelTrain {
         
             var checkPoint = 0.5;
         
-            fs.writeFileSync('./testArray.txt', validationResult.toString(), 'utf8');
+            // fs.writeFileSync('./testArray.txt', validationResult.toString(), 'utf8');
             
             for(let i = 0; i < validationResult.length; i++) {
                 if((validationResult[i] > checkPoint && validationAnswer[i] > checkPoint) || (validationResult[i] <= checkPoint && validationAnswer[i] <= checkPoint)) {
