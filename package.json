@@ -1,6 +1,6 @@
 {
   "name": "@kihyeon-hong/password_security_server",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,6 @@
   "homepage": "https://github.com/KiHyeon-Hong/Password_security_server#readme",
   "dependencies": {
     "@tensorflow/tfjs": "^3.7.0",
-    "decision-tree": "^0.3.7",
     "inko": "^1.1.1",
     "tfjs-node-save": "0.0.2",
     "zxcvbn": "^4.4.2"

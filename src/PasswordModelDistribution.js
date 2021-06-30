@@ -9,7 +9,13 @@ class PasswordModelDistribution {
     passwordModelDistribution(versionData, gatewayInfo) {
         var path = __dirname;
 
-        path = path.split('\\');
+        var tempPath = path.split('\\');
+
+        if(tempPath.length == 1) {
+            tempPath = path.split('/');
+        }
+
+        path = tempPath;
 
         var filePath = '';
         for(let i = 0; i < path.length - 1; i++) {
