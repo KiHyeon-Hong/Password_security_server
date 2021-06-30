@@ -85,6 +85,8 @@ class ModelVersionManagement {
 
                 json = JSON.stringify(json);
                 fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8');
+
+                return `Delete ${versionData} model`;
             }
         }
 

@@ -4,6 +4,8 @@ class PasswordModelParaUpdate {
     passwordModelParaUpdate(node, units, activation, epochs, comment, parameter) {
         parameter = JSON.stringify(parameter);
         fs.writeFileSync(__dirname + '/../files/passwordModelTrainPara.json', parameter, 'utf8');
+
+        return 'Update model parameter'
     }
 
     passwordModelParaRead() {

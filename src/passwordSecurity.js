@@ -20,37 +20,27 @@ class PasswordSecurity {
     // 파일 3개 변경 기능 추가 필요
     passwordDictUpdate(dictionary, comment) {
         var pwd = new LeakPasswordClassification.LeakPasswordClassification();
-        pwd.leakPasswordClassification(dictionary, comment);
-        
-        return 'passwordDictUpdate';
+        return pwd.leakPasswordClassification(dictionary, comment);
     };
 
     passwordModelParaUpdate(parameter) {
         var pwd = new PasswordModelParaUpdate.PasswordModelParaUpdate();
-        pwd.passwordModelParaUpdate(parameter.node, parameter.unit, parameter.activation, parameter.epoch, parameter.comment, parameter);
-
-        return 'passwordModelParaUpdate';
+        return pwd.passwordModelParaUpdate(parameter.node, parameter.unit, parameter.activation, parameter.epoch, parameter.comment, parameter);
     };
 
     passwordModelComment(versionData, comment) {
         var pwd = new ModelVersionManagement.ModelVersionManagement();
-        pwd.passwordModelComment(versionData, comment);
-
-        return 'passwordModelComment';
+        return pwd.passwordModelComment(versionData, comment);
     };
 
     passwordModelDelete(versionData) {
         var pwd = new ModelVersionManagement.ModelVersionManagement();
-        pwd.passwordModelDelete(versionData);
-
-        return 'passwordModelDelete';
+        return pwd.passwordModelDelete(versionData);
     };
 
     passwordModelVersion(versionData) {
         var pwd = new ModelVersionManagement.ModelVersionManagement();
-        pwd.passwordModelVersion(versionData);
-
-        return 'passwordModelVersion';
+        return pwd.passwordModelVersion(versionData);
     };
 
     getLog(level, startDate, finishDate) {
@@ -64,12 +54,6 @@ class PasswordSecurity {
         var pwd = new PasswordModelParaUpdate.PasswordModelParaUpdate();
         pwd.passwordModelParaRead();
     }
-
-    async passwordValidation(password) {
-        // 반환받은 결과를 바탕으로 피드백 기능 필요
-        const result = await new PasswordValidationTest.PasswordValidationTest().passwordValidationTest(password);
-        return result;
-    };
 }
 
 module.exports.PasswordSecurity = PasswordSecurity;
