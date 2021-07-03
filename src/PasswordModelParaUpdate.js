@@ -5,13 +5,10 @@ class PasswordModelParaUpdate {
         parameter = JSON.stringify(parameter);
         fs.writeFileSync(__dirname + '/../files/passwordModelTrainPara.json', parameter, 'utf8');
 
-        return 'Update model parameter'
-    }
-
-    passwordModelParaRead() {
-        var json = fs.readFileSync(__dirname + '/../files/passwordModelTrainPara.json', 'utf8');
-        json = JSON.parse(json);
-        console.log(json.unit[1]);
+        return {
+            state: 200,
+            comment: `하이퍼 파라매터 수정 완료`
+        };
     }
 }
 

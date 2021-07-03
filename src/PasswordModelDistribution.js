@@ -3,10 +3,7 @@ const fs = require('fs');
 const ModelVersionManagement = require(__dirname + '/ModelVersionManagement.js');
 
 class PasswordModelDistribution {
-    /*
-        입력받은 versionData 디렉터리까지의 경로를 반환
-    */
-    passwordModelDistribution(versionData, gatewayInfo) {
+    passwordModelDistribution(versionData, gatewayInfo, comment) {
         var path = __dirname;
 
         var tempPath = path.split('\\');
@@ -21,6 +18,8 @@ class PasswordModelDistribution {
         for(let i = 0; i < path.length - 1; i++) {
             filePath = filePath + path[i] + '/';
         }
+
+        versionData = versionData.toString();
 
         var pwd = new ModelVersionManagement.ModelVersionManagement();
         if(pwd.modelVersionValidation(versionData)) {

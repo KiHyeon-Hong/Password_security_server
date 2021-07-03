@@ -1,16 +1,11 @@
 const fs = require('fs');
 
 class ModelVersionManagement {
-    modelVersionManagement() {
-
-    }
-
-    /*
-        있는 버전이면 1, 없으면 0 반환
-    */
     modelVersionValidation(versionData) {
         var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
         json = JSON.parse(json);
+
+        versionData = versionData.toString();
 
         var flag = 0;
         for(let i = 0; i < json.length; i++) {
@@ -42,6 +37,11 @@ class ModelVersionManagement {
         json = JSON.stringify(json);
 
         fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8');
+
+        return {
+            state: 200,
+            comment: `${versionData} Model 등록 완료`
+        };
     }
 
     passwordModelVersion(versionData) {
@@ -60,6 +60,16 @@ class ModelVersionManagement {
     passwordModelComment(versionData, comment) {
         var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
         json = JSON.parse(json);
+        
+        versionData = versionData.toString();
+        comment = comment.toString();
+
+        if(comment.split('\'').length != 1 || comment.split('"').length != 1) {
+            return {
+                state: 303,
+                comment: `유효하지 않은 코멘트`
+            };
+        }
 
         for(let i = 0; i < json.length; i++) {
             if(json[i].version == versionData) {
@@ -68,16 +78,31 @@ class ModelVersionManagement {
                 json = JSON.stringify(json);
                 fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8');
 
-                return 'Update comment complete';
+                return {
+                    state: 200,
+                    comment: `${versionData} model 코멘트 수정 완료`
+                };
             }
         }
 
-        return 'No Search Model Version';
+        return {
+            state: 303,
+            comment: `${versionData} model이 존재하지 않음`
+        };
     }
 
     passwordModelDelete(versionData) {
         var json = fs.readFileSync(__dirname + '/../files/passwordModelVersionData.json', 'utf8');
         json = JSON.parse(json);
+
+        if(json.length == 1) {
+            return {
+                state: 307,
+                comment: `삭제 후 모델이 존재하지 않음`
+            };
+        }
+
+        versionData = versionData.toString();
 
         for(let i = 0; i < json.length; i++) {
             if(json[i].version == versionData) {
@@ -86,11 +111,17 @@ class ModelVersionManagement {
                 json = JSON.stringify(json);
                 fs.writeFileSync(__dirname + '/../files/passwordModelVersionData.json', json, 'utf8');
 
-                return `Delete ${versionData} model`;
+                return {
+                    state: 200,
+                    comment: `${versionData} model 삭제 완료`
+                };
             }
         }
 
-        return 'No Search Model Version';
+        return {
+            state: 307,
+            comment: `${versionData} model이 존재하지 않음`
+        };
     }
 }
 

@@ -6,21 +6,15 @@ var tf = require('@tensorflow/tfjs');
 require("tfjs-node-save");
 
 class PasswordModelTrain {
-    /*
-        유출모델 학습 메소드
-        반환과는 별개로 학습 수행
-
-        가끔, 초기값이 잘못 설정되면 학습이 수행되지 않으므로 일정 에러율 초과 시 재학습 수행
-        학습에 이용하는 하이퍼 파라매터는 파일에서 읽어오기!!! -> epoch, activation, unit
-        학습 후 학습 결과는 버전 명과 함께 저장
-
-    */
     passwordModelTrain(versionData, comment) {
 
         var pwd = new ModelVersionManagement.ModelVersionManagement();
 
         if(pwd.modelVersionValidation(versionData)) {
-            return 'Duplicate Version';
+            return {
+                state: 301,
+                comment: `${versionData}은 중복된 버전`
+            };
         }
 
         var json = fs.readFileSync(__dirname + '/../files/passwordModelTrainPara.json', 'utf8');
@@ -142,8 +136,6 @@ class PasswordModelTrain {
             var noGood = 0;
         
             var checkPoint = 0.5;
-        
-            // fs.writeFileSync('./testArray.txt', validationResult.toString(), 'utf8');
             
             for(let i = 0; i < validationResult.length; i++) {
                 if((validationResult[i] > checkPoint && validationAnswer[i] > checkPoint) || (validationResult[i] <= checkPoint && validationAnswer[i] <= checkPoint)) {
@@ -162,7 +154,10 @@ class PasswordModelTrain {
             });
         });
 
-        return 'Model Train Start';
+        return {
+            state: 200,
+            comment: `${versionData} model 학습 시작`
+        };
     }
 }
 
